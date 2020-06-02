@@ -1,0 +1,147 @@
+service: aws-api
+app: server-app
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: eu-west-2
+  memorySize: 128
+  timeout: 30
+  allowOrigin: https://master.d3s10xhhiupkua.amplifyapp.com/
+
+functions:
+
+  getCategories:
+    handler: controllers/navMenuItems.getCategories
+    events:
+     - http:
+         path: menuItems
+         method: get
+         cors: true
+          
+  addCategories:
+    handler: controllers/navMenuItems.addCategories
+    events:
+     - http:
+         path: todo
+         method: post
+         cors: true
+
+  getProductsByTerm:
+    handler: controllers/products.getProductsByTerm
+    events:
+      - http:
+          path: products/term/{id}
+          method: get
+          cors: true
+              
+  getProductsBySubcategory:
+    handler: controllers/products.getProductsBySubcategory
+    events:
+      - http:
+          path: products/subcategory/{id}
+          method: get
+          cors: true
+          
+  getProductById:
+    handler: controllers/products.getProductById
+    events:
+      - http:
+          path: products/id/{id}
+          method: get
+          cors: true    
+
+  getSaleGames:
+    handler: controllers/products.getSaleGames
+    events:
+      - http:
+          path: products/getSaleGames
+          method: get
+          cors: true    
+
+  getSaleHardware:
+    handler: controllers/products.getSaleHardware
+    events:
+      - http:
+          path: products/getSaleHardware
+          method: get
+          cors: true    
+
+  getMoreLikeThis:
+    handler: controllers/products.getMoreLikeThis
+    events:
+      - http:
+          path: products/getMoreLikeThis/{id}
+          method: get
+          cors: true    
+
+  getSearchItems:
+    handler: controllers/products.getSearchItems
+    events:
+      - http:
+          path: products/search/{search}
+          method: get
+          cors: true  
+
+  getTitle:
+    handler: controllers/products.getTitle
+    events:
+      - http:
+          path: products/getTitle
+          method: post
+          cors: true  
+
+  addProduct:
+    handler: controllers/products.addProduct
+    events:
+      - http:
+          path: products/
+          method: post
+          cors: true
+
+  registerUser:
+    handler: controllers/users.registerUser
+    events:
+      - http:
+          path: users/register/
+          method: post
+          cors: true
+
+  loginFromToken:
+    handler: controllers/users.loginFromToken
+    events:
+      - http:
+          path: users/token/{token}
+          method: get
+          cors: true
+          
+  loginFromEmail:
+    handler: controllers/users.loginFromEmail
+    events:
+      - http:
+          path: users/login
+          method: post
+          cors: true
+
+  addToken:
+    handler: controllers/payments.addToken
+    events:
+      - http:
+          path: payments
+          method: post
+          cors: true
+
+  createOrder:
+    handler: controllers/orders.createIntent
+    events:
+    - http:
+        path: orders/createOrder
+        method: post
+        cors: true   
+
+     
+  
+plugins:
+  - serverless-offline
+         
+  
